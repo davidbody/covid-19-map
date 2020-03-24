@@ -1,0 +1,15 @@
+{
+  "name": "d3-choropleth-demo",
+  "version": "1.0.0",
+  "description": "Choropleth of US counties with tool-tips",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "David W. Body",
+  "license": "None",
+  "dependencies": {
+    "d3": "^5.15.0",
+    "topojson-client": "^3.1.0"
+  }
+}
