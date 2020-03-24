@@ -10,7 +10,7 @@ let us_map = async function(data_file) {
 
   const data = Object.assign(new Map(d3.csvParse(csv_text, ({id, rate}) => [id, +rate])), {title: "Unemployment rate (%)"});
 
-  const svg = d3.select('body')
+  const svg = d3.select('div#map')
         .append("svg")
         .attr("viewBox", [0, 0, 975, 610]);
 

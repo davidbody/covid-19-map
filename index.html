@@ -1,6 +1,11 @@
 <!DOCTYPE html>
 <html>
-<meta charset="utf-8">
+  <meta charset="utf-8">
+  <style>
+    body {
+      font-family: sans-serif;
+    }
+  </style>
 <body>
   <script src="https://d3js.org/d3.v5.min.js"></script>
   <script src="https://unpkg.com/topojson@3"></script>
@@ -9,5 +14,11 @@
   <script>
     us_map("data/unemployment-x.csv");
   </script>
+  <h1>D3.js map example</h1>
+  <p>Unemployment rate by county, August 2016. Data: <a href="http://www.bls.gov/lau/#tables">Bureau of Labor Statistics</a></p>
+  <div id="map"></div>
+  <p>This example uses unemployment data, but the data could be anything</p>
+  <p>Data is loaded from this <a href="data/unemployment-x.csv">csv file</a></p>
+  <p>Based on the <a href="https://observablehq.com/@d3/choropleth">Choropleth example</a> from the <a href="https://observablehq.com/@d3/gallery">D3.js gallery</a>.</p>
 </body>
 </html>
