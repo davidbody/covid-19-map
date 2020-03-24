@@ -1,5 +1,5 @@
 {
-  "name": "d3-choropleth-demo",
+  "name": "d3-map-example",
   "version": "1.0.0",
   "description": "Choropleth of US counties with tool-tips",
   "main": "index.js",
