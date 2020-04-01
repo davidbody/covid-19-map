@@ -1,4 +1,9 @@
-let us_map = async function(data_file) {
+import * as d3 from "d3";
+import * as topojson from "topojson-client";
+
+import legend from "./legend";
+
+const us_map = async function(data_file) {
   const us = await d3.json("data/counties-albers-10m.json");
   const csv_text = await d3.text(data_file);
 
@@ -34,3 +39,5 @@ let us_map = async function(data_file) {
     .attr("stroke-linejoin", "round")
     .attr("d", path);
 }
+
+us_map("data/unemployment-x.csv");

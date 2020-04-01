@@ -1,10 +1,12 @@
 // https://observablehq.com/@d3/color-legend
 
-function legend({
+import * as d3 from "d3";
+
+const legend = function({
   color,
   title,
   tickSize = 6,
-  width = 320, 
+  width = 320,
   height = 44 + tickSize,
   marginTop = 18,
   marginRight = 0,
@@ -134,3 +136,5 @@ function legend({
 
   return svg.node();
 }
+
+export default legend;
