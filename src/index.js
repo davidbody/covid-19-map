@@ -9,11 +9,11 @@ const us_map = async function(data_file) {
 
   const states = new Map(us.objects.states.geometries.map(d => [d.id, d.properties]));
 
-  const format = d => `${d}%`;
+  const format = d => `${d} cases`;
   const path = d3.geoPath();
   const color = d3.scaleQuantize([1, 10], d3.schemeBlues[9]);
 
-  const data = Object.assign(new Map(d3.csvParse(csv_text, ({id, rate}) => [id, +rate])), {title: "Unemployment rate (%)"});
+  const data = Object.assign(new Map(d3.csvParse(csv_text, ({fips, cases}) => [fips, +cases])), {title: "Covid-19 cases"});
 
   const svg = d3.select('div#map')
         .append("svg")
@@ -27,10 +27,10 @@ const us_map = async function(data_file) {
     .selectAll("path")
     .data(topojson.feature(us, us.objects.counties).features)
     .join("path")
-    .attr("fill", d => color(data.get(d.id)))
+    .attr("fill", d => color(data.get(d.id) | 0))
     .attr("d", path)
     .append("title")
-    .text(d => `${d.properties.name}, ${states.get(d.id.slice(0, 2)).name} ${format(data.get(d.id))}`);
+    .text(d => `${d.properties.name}, ${states.get(d.id.slice(0, 2)).name} ${format(data.get(d.id) | 0)}`);
 
   svg.append("path")
     .datum(topojson.mesh(us, us.objects.states, (a, b) => a !== b))
@@ -40,4 +40,4 @@ const us_map = async function(data_file) {
     .attr("d", path);
 }
 
-us_map("data/unemployment-x.csv");
+us_map("data/covid-19-20200331.csv");
