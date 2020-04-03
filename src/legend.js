@@ -2,6 +2,19 @@
 
 import * as d3 from "d3";
 
+function ramp(color, n = 256) {
+  const canvas = d3.create("canvas")
+        .attr("width", n)
+        .attr("height", 1)
+        .node();
+  const context = canvas.getContext("2d");
+  for (let i = 0; i < n; ++i) {
+    context.fillStyle = color(i / (n - 1));
+    context.fillRect(i, 0, 1, 1);
+  }
+  return canvas;
+}
+
 const legend = function({
   color,
   title,

@@ -11,7 +11,7 @@ const us_map = async function(data_file) {
 
   const format = d => `${d} cases`;
   const path = d3.geoPath();
-  const color = d3.scaleQuantize([1, 10], d3.schemeBlues[9]);
+  const color = d3.scaleLog([1, 4], d3.schemeBlues[3]);
 
   const data = Object.assign(new Map(d3.csvParse(csv_text, ({fips, cases}) => [fips, +cases])), {title: "Covid-19 cases"});
 
