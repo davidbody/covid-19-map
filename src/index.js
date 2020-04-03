@@ -21,7 +21,7 @@ const us_map = async function(data_file) {
 
   svg.append("g")
     .attr("transform", "translate(610,20)")
-    .append(() => legend({color, title: data.title, width: 260}));
+    .append(() => legend({color, title: data.title, width: 260, tickFormat: '.0s'}));
 
   svg.append("g")
     .selectAll("path")
