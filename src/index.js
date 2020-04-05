@@ -4,17 +4,23 @@ import * as topojson from "topojson-client";
 import legend from "./legend";
 
 const us_map = async function(data_file) {
-  const us = await d3.json("data/counties-albers-10m.json");
   const csv_text = await d3.text(data_file);
+  const csv_data = d3.csvParse(csv_text, ({date, fips, cases}) => [date, fips, +cases]);
+  const last_date = d3.max(csv_data, d => d[0]);
+  const current_data = csv_data.filter(d => d[0] == last_date).map(d => [d[1], d[2]]);
 
+  const date_parse = d3.timeParse("%Y-%m-%d");
+  const data_date = date_parse(last_date);
+  const date_format = d3.timeFormat("%e-%B-%Y");
+  const data = Object.assign(new Map(current_data), {title: `US Covid-19 cases ${date_format(data_date)}`});
+
+  const us = await d3.json("data/counties-albers-10m.json");
   const states = new Map(us.objects.states.geometries.map(d => [d.id, d.properties]));
 
   const format = d => `${d} cases`;
   const path = d3.geoPath();
 
-  const data = Object.assign(new Map(d3.csvParse(csv_text, ({fips, cases}) => [fips, +cases])), {title: "Covid-19 cases"});
-
-  const color = d3.scaleSequentialLog(d3.extent(Array.from(data.values())), d3.interpolateBlues);
+  const color = d3.scaleSequentialLog([1, d3.max(Array.from(data.values()))], d3.interpolateBlues);
 
   const svg = d3.select('div#map')
         .append("svg")
@@ -41,4 +47,4 @@ const us_map = async function(data_file) {
     .attr("d", path);
 }
 
-us_map("data/covid-19-20200331.csv");
+us_map("data/us-counties.csv");
