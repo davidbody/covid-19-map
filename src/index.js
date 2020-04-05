@@ -47,4 +47,4 @@ const us_map = async function(data_file) {
     .attr("d", path);
 }
 
-us_map("data/us-counties.csv");
+us_map("https://raw.githubusercontent.com/nytimes/covid-19-data/master/us-counties.csv");
