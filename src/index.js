@@ -12,7 +12,7 @@ const us_map = async function(data_file) {
   const date_parse = d3.timeParse("%Y-%m-%d");
   const data_date = date_parse(last_date);
   const date_format = d3.timeFormat("%e-%B-%Y");
-  const data = Object.assign(new Map(current_data), {title: `US Covid-19 cases ${date_format(data_date)}`});
+  const data = Object.assign(new Map(current_data), {title: `Confirmed US Covid-19 cases ${date_format(data_date)}`});
 
   const us = await d3.json("data/counties-albers-10m.json");
   const states = new Map(us.objects.states.geometries.map(d => [d.id, d.properties]));
