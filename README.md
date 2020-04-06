@@ -1,3 +1,7 @@
-## D3 map example
+## Choropleth of US Covid-19 cases
 
-View the example [here](https://davidbody.github.io/d3-map-example).
+Uses latest data from [The New York Times](https://github.com/nytimes/covid-19-data).
+
+Build using [D3.js](https://d3js.org/).
+
+View the map [here](https://davidbody.github.io/d3-map-example).
