@@ -10,6 +10,15 @@ const us_map = async function(data_file) {
     if (county === 'Kansas City') fips = '29095';
     return [date, fips, +cases];
   });
+
+  // copy data for NYC to each NYC county
+  const nyc_data = csv_data.filter(x => x[1] === "36061");
+  nyc_data.forEach(x => {
+    csv_data.push([x[0], '36005', x[2]]); // Bronx
+    csv_data.push([x[0], '36047', x[2]]); // Kings
+    csv_data.push([x[0], '36081', x[2]]); // Queens
+    csv_data.push([x[0], '36085', x[2]]); // Richmond
+  });
   const last_date = d3.max(csv_data, d => d[0]);
 
   const current_data = csv_data.filter(d => d[0] === last_date).map(d => [d[1], d[2]]);
@@ -27,6 +36,11 @@ const us_map = async function(data_file) {
   const data = Object.assign(new Map(current_data_summed), {title: "Confirmed US Covid-19 cases"});
 
   const us = await d3.json("data/counties-albers-10m.json");
+
+  // change names of NYC counties to New York City
+  const nyc_fips = ['36005', '36047', '36061', '36081', '36085'];
+  us.objects.counties.geometries.filter(x => nyc_fips.includes(x.id)).forEach(x => x.properties.name = "New York City");
+
   const states = new Map(us.objects.states.geometries.map(d => [d.id, d.properties]));
 
   const format = d => `${d} cases`;
